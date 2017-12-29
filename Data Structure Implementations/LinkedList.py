@@ -63,15 +63,18 @@ class LinkedList:
             self.back = self.front
         self.size += 1
     def remove_back(self):
-        assert self.size != 0, "Removing from empty list"
-        tmp = self.back.get_prev(); del self.back; self.back = tmp; self.size -= 1
+        if self.size != 0:
+            tmp = self.back.get_prev(); del self.back; self.back = tmp; self.size -= 1
     def remove_front(self):
-        assert self.size != 0, "Removing from empty list"
-        tmp = self.front.get_next(); del self.front; self.front = tmp; self.size -= 1
+        if self.size != 0:
+            tmp = self.front.get_next(); del self.front; self.front = tmp; self.size -= 1
     def __delitem__(self, index):
-        assert index >= 0, "Index must be at least 0"
-        assert self.size != 0, "Removing from empty list"
-        assert index < self.size, "Index is too large"
+        if index < 0:
+            raise IndexError("Index must be at least 0")
+        elif self.size == 0:
+            raise IndexError("Removing from empty list")
+        elif index >= self.size:
+            raise IndexError("Index is too large")
         if index == 0:
             self.remove_front()
         elif index == self.size-1:
@@ -84,15 +87,19 @@ class LinkedList:
             curr.get_next().set_prev(curr.get_prev())
             del curr; self.size -= 1
     def __getitem__(self, index):
-        assert index >= 0, "Index must be at least 0"
-        assert index < self.size, "Index is too large"
+        if index < 0:
+            raise IndexError("Index must be at least 0")
+        elif index >= self.size:
+            raise IndexError("Index is too large")
         curr = self.front
         for _ in range(index):
             curr = curr.get_next()
         return curr
     def __setitem__(self, index, data):
-        assert index >= 0, "Index must be at least 0"
-        assert index <= self.size, "Index is too large"
+        if index < 0:
+            raise IndexError("Index must be at least 0")
+        elif index > self.size:
+            raise IndexError("Index is too large")
         if index == 0:
             self.insert_front(data)
         elif index == self.size:
