@@ -23,9 +23,7 @@ class LinkedList:
     def __init__(self):
         self.size = 0; self.front = None; self.back = None; self.iter_curr = None
     def __del__(self):
-        curr = self.front
-        for _ in range(self.size):
-            tmp = curr.get_next(); del curr; curr = tmp
+        self.clear()
     def __len__(self):
         return self.size
     def __str__(self):
@@ -42,6 +40,11 @@ class LinkedList:
             self.iter_curr = self.front; raise StopIteration
         else:
             tmp = self.iter_curr; self.iter_curr = self.iter_curr.get_next(); return tmp
+    def clear(self):
+        curr = self.front
+        for _ in range(self.size):
+            tmp = curr.get_next(); curr.set_data(None); curr.set_prev(None); curr.set_next(None); curr = tmp
+        self.size = 0; self.front = None; self.back = None; self.iter_curr = None
     def empty(self):
         return self.size == 0
     def get_end(self):
