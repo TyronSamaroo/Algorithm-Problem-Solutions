@@ -135,13 +135,15 @@ class LinkedList:
             curr.get_prev().set_next(curr)
             curr.get_next().set_prev(curr)
             self.size += 1
-    def __contains__(self, data):
+    def get(self, data):
         curr = self.front
         while curr is not None:
             if data == curr.get_data():
-                return True
+                return curr.get_data()
             curr = curr.get_next()
-        return False
+        return None
+    def __contains__(self, data):
+        return self.get(data) is not None
 
 class DoubleEndedQueue:
     def __init__(self):
