@@ -11,8 +11,10 @@ def gt(a,b):
     return a > b
 
 class Heap:
-    def __init__(self, max = True): # max = True -> MaxHeap; max = False -> MinHeap
-        self.arr = []; self.comp = {True:gt,False:lt}[max]
+    def __init__(self, max_heap = True): # max_heap = True -> MaxHeap; max_heap = False -> MinHeap
+        if not isinstance(max_heap, bool):
+            raise TypeError("max_heap must be a boolean")
+        self.arr = []; self.comp = {True:gt,False:lt}[max_heap]
     def __del__(self):
         self.clear()
     def __len__(self):

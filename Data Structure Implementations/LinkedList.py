@@ -77,6 +77,20 @@ class LinkedList:
     def remove_front(self):
         if self.size != 0:
             tmp = self.front.get_next(); del self.front; self.front = tmp; self.size -= 1
+    def remove(self, data):
+        curr = self.front
+        while curr is not None:
+            if data == curr.get_data():
+                if curr == self.front:
+                    self.remove_front()
+                elif curr == self.back:
+                    self.remove_back()
+                else:
+                    curr.get_prev().set_next(curr.get_next())
+                    curr.get_next().set_prev(curr.get_prev())
+                    del curr
+                self.size -= 1; return True
+        return False
     def __delitem__(self, index):
         if index < 0:
             raise IndexError("Index must be at least 0")
