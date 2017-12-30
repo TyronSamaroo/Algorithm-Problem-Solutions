@@ -22,6 +22,8 @@ class Heap:
     def empty(self):
         return len(self.arr) == 0
     def push(self, data):
+        if len(self.arr) != 0 and type(data) != type(self.arr[0]):
+            raise TypeError("All elements must be same type")
         i = len(self.arr); self.arr.append(data)
         while i > 0 and self.comp(self.arr[i], self.arr[parent(i)]):
             tmp = self.arr[i]; self.arr[i] = self.arr[parent(i)]; self.arr[parent(i)] = tmp; i = parent(i)
