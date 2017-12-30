@@ -121,6 +121,13 @@ class LinkedList:
             curr.get_prev().set_next(curr)
             curr.get_next().set_prev(curr)
             self.size += 1
+    def __contains__(self, data):
+        curr = self.front
+        while curr is not None:
+            if data == curr.get_data():
+                return True
+            curr = curr.get_next()
+        return False
 
 class DoubleEndedQueue:
     def __init__(self):
