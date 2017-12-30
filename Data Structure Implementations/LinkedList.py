@@ -39,7 +39,7 @@ class LinkedList:
         if self.iter_curr is None:
             self.iter_curr = self.front; raise StopIteration
         else:
-            tmp = self.iter_curr; self.iter_curr = self.iter_curr.get_next(); return tmp
+            tmp = self.iter_curr.get_data(); self.iter_curr = self.iter_curr.get_next(); return tmp
     def clear(self):
         curr = self.front
         for _ in range(self.size):
@@ -48,9 +48,9 @@ class LinkedList:
     def empty(self):
         return self.size == 0
     def get_end(self):
-        return self.back
+        return self.back.get_data()
     def get_front(self):
-        return self.front
+        return self.front.get_data()
     def insert_back(self, data):
         self.back = Node(data, prev = self.back)
         if self.back.get_prev() is not None:
@@ -97,7 +97,7 @@ class LinkedList:
         curr = self.front
         for _ in range(index):
             curr = curr.get_next()
-        return curr
+        return curr.get_data()
     def __setitem__(self, index, data):
         if index < 0:
             raise IndexError("Index must be at least 0")

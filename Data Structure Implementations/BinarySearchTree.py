@@ -75,7 +75,7 @@ class BinarySearchTree:
         if self.iter_curr is None:
             self.iter_curr = self.leftmost; raise StopIteration
         else:
-            tmp = self.iter_curr; self.iter_curr = self.iter_curr.get_successor(); return tmp
+            tmp = self.iter_curr.get_data(); self.iter_curr = self.iter_curr.get_successor(); return tmp
     def __contains__(self, data):
         curr = self.root
         while curr is not None:
@@ -87,8 +87,9 @@ class BinarySearchTree:
                 return True
         return False
     def clear(self):
-        for node in self.postorder():
-            node.set_data(None); node.set_parent(None); node.set_left(None); node.set_right(None)
+        if self.root:
+            for node in self.root.postorder():
+                node.set_data(None); node.set_parent(None); node.set_left(None); node.set_right(None)
         self.size = 0; self.root = None; self.leftmost = None; self.iter_curr = None
     def empty(self):
         return self.size == 0
@@ -159,12 +160,12 @@ class BinarySearchTree:
     def preorder(self):
         if self.root:
             for e in self.root.preorder():
-                yield e
+                yield e.get_data()
     def inorder(self):
         if self.root:
             for e in self.root.inorder():
-                yield e
+                yield e.get_data()
     def postorder(self):
         if self.root:
             for e in self.root.postorder():
-                yield e
+                yield e.get_data()
