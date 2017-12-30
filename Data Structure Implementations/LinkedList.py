@@ -131,6 +131,10 @@ class DoubleEndedQueue:
         self.LL.clear()
     def empty(self):
         return self.LL.empty()
+    def check_back(self):
+        return self.LL.get_back()
+    def check_front(self):
+        return self.LL.get_front()
     def dequeue_back(self):
         tmp = self.LL.get_back(); self.LL.remove_back(); return tmp
     def dequeue_front(self):
@@ -149,6 +153,8 @@ class Queue:
         self.DEQ.clear()
     def empty(self):
         return self.DEQ.empty()
+    def check(self):
+        return self.DEQ.check_front()
     def dequeue(self):
         return self.DEQ.dequeue_front()
     def enqueue(self, data):
@@ -167,3 +173,5 @@ class Stack:
         return self.DEQ.dequeue_back()
     def push(self, data):
         return self.DEQ.enqueue_back(data)
+    def top(self):
+        return self.DEQ.check_back()
