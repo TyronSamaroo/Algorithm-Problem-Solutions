@@ -41,8 +41,6 @@ class LinkedList:
         else:
             tmp = self.iter_curr.get_data(); self.iter_curr = self.iter_curr.get_next(); return tmp
     def clear(self):
-        while not self.empty():
-            self.remove_front()
         self.size = 0; self.front = None; self.back = None; self.iter_curr = None
     def empty(self):
         return self.size == 0
@@ -71,11 +69,19 @@ class LinkedList:
             self.back = self.front
         self.size += 1
     def remove_back(self):
-        if self.size != 0:
-            tmp = self.back.get_prev(); del self.back; self.back = tmp; self.size -= 1; return True
+        if self.empty():
+            return False
+        tmp = self.back.get_prev(); del self.back; self.back = tmp; self.size -= 1
+        if self.empty():
+            self.front = None; self.iter_curr = None
+        return True
     def remove_front(self):
-        if self.size != 0:
-            tmp = self.front.get_next(); del self.front; self.front = tmp; self.size -= 1; return True
+        if self.empty():
+            return False
+        tmp = self.front.get_next(); del self.front; self.front = tmp; self.iter_curr = tmp; self.size -= 1
+        if self.empty():
+            self.back = None
+        return True
     def remove(self, data):
         curr = self.front
         while curr is not None:
