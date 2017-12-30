@@ -77,6 +77,8 @@ class BinarySearchTree:
         else:
             tmp = self.iter_curr.get_data(); self.iter_curr = self.iter_curr.get_successor(); return tmp
     def __contains__(self, data):
+        if not self.empty() and type(data) != type(self.root.get_data()):
+            return False
         curr = self.root
         while curr is not None:
             if data < curr.get_data():
