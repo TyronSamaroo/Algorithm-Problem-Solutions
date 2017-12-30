@@ -47,10 +47,16 @@ class LinkedList:
         self.size = 0; self.front = None; self.back = None; self.iter_curr = None
     def empty(self):
         return self.size == 0
-    def get_end(self):
-        return self.back.get_data()
+    def get_back(self):
+        if self.back is None:
+            return None
+        else:
+            return self.back.get_data()
     def get_front(self):
-        return self.front.get_data()
+        if self.front is None:
+            return None
+        else:
+            return self.front.get_data()
     def insert_back(self, data):
         self.back = Node(data, prev = self.back)
         if self.back.get_prev() is not None:
@@ -115,3 +121,49 @@ class LinkedList:
             curr.get_prev().set_next(curr)
             curr.get_next().set_prev(curr)
             self.size += 1
+
+class DoubleEndedQueue:
+    def __init__(self):
+        self.LL = LinkedList()
+    def __len__(self):
+        return len(self.LL)
+    def clear(self):
+        self.LL.clear()
+    def empty(self):
+        return self.LL.empty()
+    def dequeue_back(self):
+        tmp = self.LL.get_back(); self.LL.remove_back(); return tmp
+    def dequeue_front(self):
+        tmp = self.LL.get_front(); self.LL.remove_front(); return tmp
+    def enqueue_back(self, data):
+        self.LL.insert_back(data)
+    def enqueue_front(self, data):
+        self.LL.insert_front(data)
+
+class Queue:
+    def __init__(self):
+        self.DEQ = DoubleEndedQueue()
+    def __len__(self):
+        return len(self.DEQ)
+    def clear(self):
+        self.DEQ.clear()
+    def empty(self):
+        return self.DEQ.empty()
+    def dequeue(self):
+        return self.DEQ.dequeue_front()
+    def enqueue(self, data):
+        return self.DEQ.enqueue_back(data)
+
+class Stack:
+    def __init__(self):
+        self.DEQ = DoubleEndedQueue()
+    def __len__(self):
+        return len(self.DEQ)
+    def clear(self):
+        self.DEQ.clear()
+    def empty(self):
+        return self.DEQ.empty()
+    def pop(self):
+        return self.DEQ.dequeue_back()
+    def push(self, data):
+        return self.DEQ.enqueue_back(data)
